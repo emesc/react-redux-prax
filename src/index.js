@@ -38,14 +38,19 @@ class App extends Component {
 		// this will immediately kick off once App is instantiated, function below (replaced by fat arrow) is a callback function that will be called with the datum/data which is a list of videos (replaced 'data' with 'videos' since it is an array of videos but it can be any name)
 		YTSearch({ key: API_KEY, term: "surfboards" }, videos => {
 			// below is same as this.setState({ videos: videos }); using ES6 to refactor to use syntactic sugar when key and value are the same
-			this.setState({ videos });
+			this.setState({ videos })
 		});
 	}
 
+	// App is the parent component of VideoList; VideoList needs access on the app state/list of videos at any given time
+	// we need to pass some data from the parent component App into the child component VideoList
+	// we do this by defining a property on the jsx tag
+	// in a class based component, props is available anywhere that we define as this.props; note this when doing refactoring
 	render() {
 		return (
 			<div>
 				<SearchBar />
+				<VideoList videos={this.state.videos} />
 			</div>
 		);
 	}
